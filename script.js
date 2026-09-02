@@ -9,16 +9,7 @@ nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
   menuButton.setAttribute('aria-expanded', 'false');
 }));
 
-const quotes = [...document.querySelectorAll('.quotes blockquote')];
-let quoteIndex = 0;
-function showQuote(next) {
-  quotes[quoteIndex].classList.remove('active');
-  quoteIndex = (next + quotes.length) % quotes.length;
-  quotes[quoteIndex].classList.add('active');
-}
-document.querySelector('.next').addEventListener('click', () => showQuote(quoteIndex + 1));
-document.querySelector('.prev').addEventListener('click', () => showQuote(quoteIndex - 1));
-document.querySelector('#year').textContent = new Date().getFullYear();
+document.querySelectorAll('[data-year], #year').forEach(el => el.textContent = new Date().getFullYear());
 
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -28,4 +19,4 @@ const observer = new IntersectionObserver(entries => {
     }
   });
 }, {threshold:.15});
-document.querySelectorAll('section:not(.hero) h2, .service-card, .proof-row, .quote-wrap').forEach(el => observer.observe(el));
+document.querySelectorAll('section:not(.hero) h2, .gateway-card, .detail-list article, .principles article, .review-grid blockquote').forEach(el => observer.observe(el));
